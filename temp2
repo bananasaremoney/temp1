@@ -1,0 +1,24 @@
+import MessageUI
+
+class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
+
+    func sendMessage() {
+        if MFMessageComposeViewController.canSendText() {
+            let messageVC = MFMessageComposeViewController()
+            messageVC.messageComposeDelegate = self
+
+            // Do not set recipients if you want the ⊕ button enabled
+            // messageVC.recipients = ["1234567890"] // Commented out
+
+            messageVC.body = "Your message here"
+            present(messageVC, animated: true, completion: nil)
+        } else {
+            // Show alert that messaging is not available
+        }
+    }
+
+    // Delegate method
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
