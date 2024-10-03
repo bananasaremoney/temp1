@@ -1,0 +1,46 @@
+import UIKit
+import MessageKit
+import InputBarAccessoryView
+
+class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        configureMessageInputBar()
+    }
+
+    func configureMessageInputBar() {
+        let attachmentButton = InputBarButtonItem()
+        attachmentButton.setSize(CGSize(width: 36, height: 36), animated: false)
+        attachmentButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        attachmentButton.onTouchUpInside { [weak self] _ in
+            self?.didTapAttachmentButton()
+        }
+
+        messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.setStackViewItems([attachmentButton], forStack: .left, animated: false)
+    }
+
+    func didTapAttachmentButton() {
+        // Handle attachment action
+        print("Attachment button tapped")
+    }
+
+    // Implement required MessagesDataSource methods
+    func currentSender() -> SenderType {
+        // Return the current sender
+    }
+
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+        // Return the number of message sections
+    }
+
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        // Return the message for the given index path
+    }
+
+    // Implement MessagesLayoutDelegate and MessagesDisplayDelegate methods as needed
+}
